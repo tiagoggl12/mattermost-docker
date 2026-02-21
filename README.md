@@ -26,3 +26,5 @@ Após instalado:
    - Ative Google Drive API
    - Crie credenciais OAuth 2.0
    - Configure o plugin com Client ID e Secret
+
+## Test CI/CD
