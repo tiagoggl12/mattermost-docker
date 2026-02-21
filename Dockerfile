@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 mattermost/mattermost-team-edition:11.3
+FROM --platform=linux/amd64 mattermost/mattermost-team-edition:10
 
 ENV MM_SQLSETTINGS_DRIVERNAME=postgres
 ENV MM_SERVICESETTINGS_SITEURL=https://bugacave-mattermost-1070113539349.europe-west1.run.app
