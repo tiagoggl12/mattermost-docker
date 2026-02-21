@@ -1,0 +1,26 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA', '.', '-f', 'Dockerfile']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'services'
+      - 'update'
+      - 'bugacave-mattermost'
+      - '--platform=managed'
+      - '--image=europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA'
+      - '--region=europe-west1'
+      - '--cloudsql-instances=mattermost-488117:europe-west1:mattermost-db'
+      - '--set-env-vars=MM_SQLSETTINGS_DATASOURCE=postgres://mmuser:mmuser_password@/mattermost?host=/cloudsql/mattermost-488117:europe-west1:mattermost-db'
+      - '--service-account=1070113539349-compute@developer.gserviceaccount.com'
+      - '--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA'
+      - '--quiet'
+
+images:
+  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
