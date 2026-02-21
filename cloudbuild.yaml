@@ -1,8 +1,8 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['pull', 'ghcr.io/mattermost/mattermost-team-edition:10.0.0']
+    args: ['pull', 'mattermost/mattermost-team-edition:10.0.0']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'ghcr.io/mattermost/mattermost-team-edition:10.0.0', 'europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA']
+    args: ['tag', 'mattermost/mattermost-team-edition:10.0.0', 'europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/mattermost:$COMMIT_SHA']
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
