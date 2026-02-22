@@ -1,5 +1,6 @@
 FROM mattermost/mattermost-team-edition:10.0.0
 
+COPY config/config.json /mattermost/config/config.json
 COPY plugins/ /mattermost/plugins/
 
 ENV MM_SQLSETTINGS_DRIVERNAME=postgres
